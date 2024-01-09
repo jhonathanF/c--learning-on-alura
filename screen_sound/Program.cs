@@ -10,7 +10,7 @@ void Main()
 
     while (selectedOption != 0)
     {
-        ShowMenuOptions();
+        DisplayMenuOptions();
         selectedOption = int.Parse(readOption());
         switch (selectedOption)
         {
@@ -24,7 +24,7 @@ void Main()
     }
 }
 
-void ShowWelcomeMessage()
+void DisplayWelcomeMessage()
 {
     Console.WriteLine(@"
 █▀ █▀▀ █▀█ █▀▀ █▀▀ █▄░█   █▀ █▀█ █░█ █▄░█ █▀▄   █▀█ █▀█ █▀█ ░░█ █▀▀ █▀▀ ▀█▀
@@ -32,10 +32,22 @@ void ShowWelcomeMessage()
     ");
 }
 
-void ShowMenuOptions()
+void DisplayOptionTitle(string title) 
+{
+    int titleLength = title.Length;
+    string border = string.Empty.PadLeft(titleLength, '*');
+
+    Console.Clear();
+    Console.WriteLine(border);
+    Console.WriteLine(title);
+    Console.WriteLine(border);
+    Console.WriteLine();
+}
+
+void DisplayMenuOptions()
 {
     Console.Clear();
-    ShowWelcomeMessage();
+    DisplayWelcomeMessage();
     Console.WriteLine("\n1 - Register a new Band");
     Console.WriteLine("2 - Show All Bands");
     Console.WriteLine("3 - Review a Band");
@@ -52,8 +64,7 @@ string readOption()
 
 void RegisterBand()
 {
-    Console.Clear();
-    Console.WriteLine("Band Register");
+    DisplayOptionTitle("Band Register");
     Console.Write("Band Name: ");
 
     string bandName = Console.ReadLine()!;
@@ -61,14 +72,11 @@ void RegisterBand()
 
     Console.Write($"Band {bandName} registered!");
     Thread.Sleep(2000);
-
-    ShowMenuOptions();
 }
 
 void showAllBands()
 {
-    Console.Clear();
-
+     DisplayOptionTitle("All Bands List");
     foreach (string bandName in bandList)
     {
         Console.WriteLine(bandName);
