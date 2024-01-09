@@ -1,11 +1,13 @@
 ﻿List<string> bandList = new List<string>(["Red Hot Chilli Peppers"]);
+Dictionary<string, List<int>> bandDictionary = new();
+bandDictionary.Add("Red Hot Chilli Peppers", new List<int> { 10 });
+bandDictionary.Add("Fresno", new List<int>{});
+
 Main();
 
 
 void Main()
 {
-
-
     int? selectedOption = null;
 
     while (selectedOption != 0)
@@ -16,7 +18,7 @@ void Main()
         {
             case 1: RegisterBand(); break;
             case 2: showAllBands(); break;
-            case 3: Console.WriteLine("You Choose 3!!"); break;
+            case 3: ReviewABand(); break;
             case 4: Console.WriteLine("You Choose 4!!"); break;
             case 0: Console.WriteLine("Bye o/"); break;
             default: Console.WriteLine("Invalid option :/"); break;
@@ -32,7 +34,7 @@ void DisplayWelcomeMessage()
     ");
 }
 
-void DisplayOptionTitle(string title) 
+void DisplayOptionTitle(string title)
 {
     int titleLength = title.Length;
     string border = string.Empty.PadLeft(titleLength, '*');
@@ -68,7 +70,7 @@ void RegisterBand()
     Console.Write("Band Name: ");
 
     string bandName = Console.ReadLine()!;
-    bandList.Add(bandName);
+    bandDictionary.Add(bandName, new List<int>{});
 
     Console.Write($"Band {bandName} registered!");
     Thread.Sleep(2000);
@@ -76,11 +78,35 @@ void RegisterBand()
 
 void showAllBands()
 {
-     DisplayOptionTitle("All Bands List");
-    foreach (string bandName in bandList)
+    DisplayOptionTitle("All Bands List");
+    foreach (string bandName in bandDictionary.Keys)
     {
         Console.WriteLine(bandName);
+        Console.WriteLine("Band Reviews: " + string.Join<int>(", ", bandDictionary[bandName]) + "\n");
     }
 
     Console.ReadLine();
+}
+
+void ReviewABand()
+{
+    DisplayOptionTitle("Review a band");
+
+    Console.Write("Enter the band name: ");
+    string bandSelected = readOption();
+
+    if (!bandDictionary.ContainsKey(bandSelected))
+    {
+        Console.WriteLine($"\nBand {bandSelected} not found :/");
+        Console.ReadLine();
+        return;
+    }
+
+    Console.Write("\nEnter the review note (1 to 10): ");
+    int bandReview = int.Parse(readOption());
+    bandDictionary[bandSelected].Add(bandReview);
+
+    Console.Write("\nReview Registed Successfully!");
+
+    Thread.Sleep(1500);
 }
