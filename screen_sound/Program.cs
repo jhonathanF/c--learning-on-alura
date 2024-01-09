@@ -1,7 +1,7 @@
-﻿List<string> bandList = new List<string>(["Red Hot Chilli Peppers"]);
+﻿List<string> bandList = new(["Red Hot Chilli Peppers"]);
 Dictionary<string, List<int>> bandDictionary = new();
-bandDictionary.Add("Red Hot Chilli Peppers", new List<int> { 10 });
-bandDictionary.Add("Fresno", new List<int>{});
+bandDictionary.Add("Red Hot Chilli Peppers", [10]);
+bandDictionary.Add("Fresno", []);
 
 Main();
 
